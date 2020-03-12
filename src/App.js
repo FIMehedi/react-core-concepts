@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 
@@ -8,7 +8,7 @@ function App() {
   };
 
   const data = [
-    {name: 'Fokrul Islam Mehedi', age: 17, gender: 'Male'},
+    {name: 'Fokrul Islam', age: 17, gender: 'Male'},
     {name: 'Afsar Uddin', age: 18, gender: 'Male'},
     {name: 'Emon Hasan', age: 20, gender: 'Male'},
     {name: 'Hasib Uddin', age: 19, gender: 'Male'}
@@ -19,15 +19,33 @@ function App() {
     <div className="App">
       <header className="App-header">
 
+        <Counter></Counter>
+
         {
           data.map(person => <Info person={person}></Info>)
         }
     
-        
+        <ul>
+          {
+            friends.map(friend => <li style={friendStyle}>{friend}</li>)
+          }
+        </ul>
 
       </header>
     </div>
   );
+}
+
+function Counter(props) {
+  const [count, setCount] = useState(0); 
+  
+  return (
+    <div>
+      <h3>Count: {count}</h3>
+      <button onClick={() => setCount(count - 1)} style={{padding: '10px 20px'}}>Decrease</button>
+      <button onClick={() => setCount(count + 1)} style={{padding: '10px 20px'}}>Increase</button>
+    </div>
+  )
 }
 
 function Info(props) {
@@ -42,7 +60,7 @@ function Info(props) {
     <div style={InfoStyle}>
       <h3>Name : {name}</h3>
       <h5>Age : {age}</h5>
-      <h5>Gender: {gender}</h5>
+      <h5>Gender : {gender}</h5>
     </div>
   )
 }
