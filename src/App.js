@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const friendStyle = {
+  const listStyle = {
     textAlign : 'left'
   };
 
@@ -24,13 +24,16 @@ function App() {
         {
           data.map(person => <Info person={person}></Info>)
         }
-    
+
+        <h2>Friends Name</h2>
         <ul>
           {
-            friends.map(friend => <li style={friendStyle}>{friend}</li>)
+            friends.map(friend => <li style={listStyle}>{friend}</li>)
           }
         </ul>
-
+        
+        <h2>Dynamic Data Form Server</h2>
+        <Users></Users>
       </header>
     </div>
   );
@@ -40,7 +43,7 @@ function Counter(props) {
   const [count, setCount] = useState(0); 
   
   return (
-    <div>
+    <div style={{marginBottom: '20px'}}>
       <h3>Count: {count}</h3>
       <button onClick={() => setCount(count - 1)} style={{padding: '10px 20px'}}>Decrease</button>
       <button onClick={() => setCount(count + 1)} style={{padding: '10px 20px'}}>Increase</button>
@@ -61,6 +64,24 @@ function Info(props) {
       <h3>Name : {name}</h3>
       <h5>Age : {age}</h5>
       <h5>Gender : {gender}</h5>
+    </div>
+  )
+}
+
+function Users() {
+  const [users, setUsers] = useState([]);
+  useEffect( () => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+    .then(data => setUsers(data));
+  })
+  return(
+    <div>
+      <ul style={{textAlign: 'left'}}>
+        {
+          users.map(user => <li>{user.name}</li>)
+        }
+      </ul>
     </div>
   )
 }
